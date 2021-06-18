@@ -40,7 +40,7 @@ def login():
 
         flash('Invalid Username or Password')
 
-    title = "60sec Pitch|Login"
+    title = "blog"
     return render_template('auth/login.html', login_form = login_form, title = title)
 
 
