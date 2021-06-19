@@ -122,3 +122,13 @@ class PostLike(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
 
 
+class Quote:
+    """
+    Class Quotes consumed from Api
+    """
+    def __init__(self, author, quote):
+        self.author = author
+        self.quote = quote
+
+
+
