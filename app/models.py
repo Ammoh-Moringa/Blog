@@ -81,3 +81,31 @@ class Post(db.Model):
     def get_all_posts(cls):
         return Post.query.order_by(Post.posted_at).all()
 
+
+class Comment(db.Model):
+    __tablename__ = "comments"
+
+    id = db.Column(db.Integer, primary_key = True)
+    comment = db.Column(db.String)
+    comment_at = db.Column(db.DateTime)
+    comment_by = db.Column(db.String)
+    like_count = db.Column(db.Integer, default = 0)
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def delete_comment(cls, id):
+        gone = Comment.query.filter_by(id = id).first()
+        db.session.delete(gone)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,id):
+        comments = Comment.query.filter_by(post_id = id).all()
+        return comments
+
+
