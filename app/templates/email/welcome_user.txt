@@ -1,0 +1,3 @@
+Hello {{user.username}}
+Welcome to Blog
+We have just seen you have signed up for our application and want to welcome you to the blog.You are hereby free to create your oen blog , view and comment on blogs.

@@ -1,36 +1,40 @@
+
 <div class="navbar navbar-inverse" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/" style="color: goldenrod;"> Blog </a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/" style="color:goldenrod">Home</a></li>
+  <div class="container-fluid">
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"> </a>
+      </div>
+      <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              <li><a href="/">Home</a></li>
+          </ul>
+            <ul class="nav navbar-nav navbar-left">
+              {%if current_user.is_authenticated%}
+              <li class="nav-item">
+                <a class="nav-link" href="/post/new">Create Post</a>
+              </li>
+              {%endif%}
+              
             </ul>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                  {%if current_user.is_authenticated%}
-                  <li class="nav-item">
-                    <a class="nav-link" href="/post/new">Create Post</a>
-                  </li>
-                  {%endif%}
-                </ul>
-            <ul class="nav navbar-nav navbar-right">
-                {% if current_user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/" style="color: goldenrod">{{current_user.username.capitalize()}}</a>
-                </li>
-                <li><a href="{{url_for('auth.logout')}}" style="color: goldenrod;">Sign out</a></li>
-                {% else %}
-                <li><a href="{{url_for('auth.login')}}" style="color: goldenrod;">Sign in</a></li>
-                {%endif%}
-            </ul>
-        </div>
-    </div>
+          <ul class="nav navbar-nav navbar-right">
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="/">{{current_user.username.capitalize()}}</a>
+            </li>
+            {%endif%}
+              {% if current_user.is_authenticated %}
+
+              <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+              {% else %}
+              <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+              {%endif%}
+          </ul>
+      </div>
+  </div>
 </div>
