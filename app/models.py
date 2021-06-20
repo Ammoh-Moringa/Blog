@@ -107,6 +107,7 @@ class Comment(db.Model):
     like_count = db.Column(db.Integer, default = 0)
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
 
     def save_comment(self):
         db.session.add(self)

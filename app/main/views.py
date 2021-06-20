@@ -27,31 +27,43 @@ def index():
                             quote = quote)
 
 @main.route("/post/<int:id>", methods = ["POST", "GET"])
-def post(id):
-    post = Post.query.filter_by(id = id).first()
-    comments = Comment.query.filter_by(post_id = id).all()
-    comment_form = CommentForm()
-    comment_count = len(comments)
+# def post(id):
+#     post = Post.query.filter_by(id = id).first()
+#     comments = Comment.query.filter_by(post_id = id).all()
+#     comment_form = CommentForm()
+#     comment_count = len(comments)
 
+#     if comment_form.validate_on_submit():
+#         comment = comment_form.comment.data
+#         comment_form.comment.data = ""
+#         comment_alias = comment_form.alias.data
+#         comment_form.alias.data = ""
+#         if current_user.is_authenticated:
+#             comment_alias = current_user.username
+#         new_comment = Comment(comment = comment, 
+#                             comment_at = datetime.now(),
+#                             comment_by = comment_alias,
+#                             post_id = id)
+#         new_comment.save_comment()
+#         return redirect(url_for("main.post", id = post.id))
+
+#     return render_template("comments.html",
+#                             post = post,
+#                             comments = comments,
+#                             comment_form = comment_form,
+#                             comment_count = comment_count)
+
+
+
+def post(id):
+    post = Post.query.filter_by(id = id).all()
+    postComments = Comment.query.filter_by(post_id=id).all()
+    comment_form = CommentForm()
     if comment_form.validate_on_submit():
         comment = comment_form.comment.data
-        comment_form.comment.data = ""
-        comment_alias = comment_form.alias.data
-        comment_form.alias.data = ""
-        if current_user.is_authenticated:
-            comment_alias = current_user.username
-        new_comment = Comment(comment = comment, 
-                            comment_at = datetime.now(),
-                            comment_by = comment_alias,
-                            post_id = id)
+        new_comment = Comment(post_id=id, comment=comment, user=current_user)
         new_comment.save_comment()
-        return redirect(url_for("main.post", id = post.id))
-
-    return render_template("comments.html",
-                            post = post,
-                            comments = comments,
-                            comment_form = comment_form,
-                            comment_count = comment_count)
+    return render_template('comments.html', post=post, post_comments=postComments, comment_form=comment_form)
 
 
 @main.route("/profile/<int:id>", methods = ["POST", "GET"])
