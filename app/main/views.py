@@ -143,3 +143,21 @@ def new_post():
     
     return render_template("new_post.html",
                             post_form = post_form)
+
+
+@main.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
+def updateBlog(id):
+    blog = Blog.query.get_or_404(id)
+    form = BlogForm()
+    if form.validate_on_submit():
+        blog.title_blog = form.blogTitle.data
+        blog.description = form.blogDescription.data
+        db.session.add(blog)
+        db.session.commit()
+
+        return redirect(url_for('main.allBlogs'))
+    elif request.method == 'GET':
+        form.blogTitle.data = blog.title_blog
+        form.blogDescription.data = blog.description
+    return render_template('updateBlog.html', form=form) 
