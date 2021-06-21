@@ -89,15 +89,13 @@ def profile(id):
     return render_template("profile/profile.html",
                             user = user,
                             posts = posts)
-
-@main.route("/profile/<int:id>/<int:post_id>/delete")
+@main.route('/deletepost/<int:id>', methods=['GET', 'POST'])
 @login_required
-def delete_post(id, post_id):
-    user = User.query.filter_by(id = id).first()
-    post = Post.query.filter_by(id = post_id).first()
-    db.session.delete(post)
+def delete_post(id):
+    blog = Post.query.get_or_404(id)
+    db.session.delete(blog)
     db.session.commit()
-    return redirect(url_for("main.profile", id = user.id))
+    return redirect(url_for('main.index'))
 
 @main.route("/profile/<int:id>/update", methods = ["POST", "GET"])
 @login_required
