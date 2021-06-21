@@ -5,7 +5,7 @@ from wtforms.validators import Required
 
 class PostForm(FlaskForm):
     title = StringField("Blog title:", validators=[Required()])
-    post = TextAreaField("Post your blog:", validators=[Required()])
+    post = TextAreaField("Post blog:", validators=[Required()])
     submit = SubmitField("Post")
 
 class UpdatePostForm(FlaskForm):

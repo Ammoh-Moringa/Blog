@@ -1,13 +1,15 @@
-
-
 {% extends 'base.html'%}
 {% block content %}
-<header class="masthead" style="background-color: goldenrod; margin-top: 40px;">
+<header class="masthead" style="background-image: url(../static/cup.jpeg); margin-top: 40px;background-repeat: no-repeat;
+background-size: cover;
+background-position: center center;
+background-attachment: fixed;">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="site-heading">
-          <span class="subheading"><i class="fas fa-quote-left"></i> <em>{{quote.quote}}</em> <i class="fas fa-quote-right"></i></span>
+          <span class="subheading"><i class="fas fa-quote-left"></i> <em>{{quote.quote}}</em> <i
+              class="fas fa-quote-right"></i></span>
           <h2>{{quote.author}}</h2>
         </div>
       </div>
@@ -20,22 +22,25 @@
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
       {%for post in posts[::-1]%}
-      <div class="post-preview">
-        <a href="{{url_for('main.new_post', id = post.id)}}">
-          <h2 class="post-title">
-            {{post.post_title}}
-          </h2>
-          <h3 class="post-subtitle">
-            {{post.post_content | truncate (45) | safe}}
-          </h3>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="{{url_for('main.profile', id = post.user_id)}}">{{post.post_by}}</a> on
-          {{post.posted_at.strftime('%B %d, %Y')}}
-        </p>
-        <a href="{{url_for('main.CommentBlog', id = post.id)}}">Comment</a>
-        <a href="{{url_for('main.updateBlog', id=post.id)}}"><i class="fas fa-pen pr-3"></i>update</a>
-        <a href="{{url_for('main.delete_post',id = post.id)}}"><i class="fas fa-trash text-danger">Delete</i></a>
+      <div class="card-body">
+        <div class="post-preview">
+          <p href="{{url_for('main.new_post', id = post.id)}}">
+            <h2 class="post-title">
+              {{post.post_title}}
+            </h2>
+            <h3 class="post-subtitle">
+              {{post.post_content | truncate (45) | safe}}
+            </h3>
+          </p>
+          <p class="post-meta">Posted by
+            <p href="{{url_for('main.profile', id = post.user_id)}}">{{post.post_by}}</p> on
+            {{post.posted_at.strftime('%B %d, %Y')}}
+          </p>
+
+          <a href="{{url_for('main.CommentBlog', id = post.id)}}">Comment</a>
+          <a href="{{url_for('main.updateBlog', id=post.id)}}"><i class="fas fa-pen pr-3"></i>update</a>
+          <a href="{{url_for('main.delete_post',id = post.id)}}"><i class="fas fa-trash text-danger">Delete</i></a>
+        </div>
       </div>
       <hr>
       {%endfor%}
