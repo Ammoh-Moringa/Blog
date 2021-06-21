@@ -148,16 +148,16 @@ def new_post():
 @main.route('/update/<int:id>', methods=['GET', 'POST'])
 @login_required
 def updateBlog(id):
-    blog = Blog.query.get_or_404(id)
-    form = BlogForm()
+    post = Post.query.get_or_404(id)
+    form = PostForm()
     if form.validate_on_submit():
-        blog.title_blog = form.blogTitle.data
-        blog.description = form.blogDescription.data
-        db.session.add(blog)
+        post.post_title = form.title.data
+        post.post_content = form.post.data
+        db.session.add(post)
         db.session.commit()
 
-        return redirect(url_for('main.allBlogs'))
+        return redirect(url_for('main.index'))
     elif request.method == 'GET':
-        form.blogTitle.data = blog.title_blog
-        form.blogDescription.data = blog.description
-    return render_template('updateBlog.html', form=form) 
+        form.title.data = post.post_title
+        form.post.data = post.post_content
+    return render_template('updatePost.html', form=form) 
