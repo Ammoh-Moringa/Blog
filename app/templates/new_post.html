@@ -2,7 +2,10 @@
 
 {%block content%}
 <br><br><br>
-<div class="container">
+<div class="container" style="background-image: url(../static/white77.jpeg);background-repeat: no-repeat;
+background-size: cover;
+background-position: center center;
+background-attachment: fixed;">
     <div class="container">
         <div class="row">
             <div class="col-md-2"></div>
@@ -13,10 +16,10 @@
                     <br>
                     {{post_form.title.label}} {{post_form.title(class = "form-control")}}
                     <br>
-                    {{post_form.post.label}} {{post_form.post(id = "summernote")}}
+                    {{post_form.post.label}} <br>{{post_form.post(id = "summernote")}}
                     <br>
                     <br>
-                    {{post_form.submit(class = "btn btn-primary")}}
+                    {{post_form.submit(class = "btn btn-success")}}
                 </form>
             </div>
             <div class="col-md-2"></div>
