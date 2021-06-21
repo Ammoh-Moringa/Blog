@@ -18,8 +18,11 @@ background-attachment: fixed;">
 </header>
 
 <!-- Main Content -->
-<div class="container">
-  <div class="row">
+<div class="container text-center" style="background-image:url(../static/hand.jpeg);background-repeat: no-repeat;
+background-size: cover;
+background-position: center center;
+background-attachment: fixed; text-align: center;" >
+  <div class="row text-center">
     <div class="col-lg-8 col-md-10 mx-auto">
       {%for post in posts[::-1]%}
       <div class="card-body">
@@ -37,9 +40,9 @@ background-attachment: fixed;">
             {{post.posted_at.strftime('%B %d, %Y')}}
           </p>
 
-          <a href="{{url_for('main.CommentBlog', id = post.id)}}">Comment</a>
-          <a href="{{url_for('main.updateBlog', id=post.id)}}"><i class="fas fa-pen pr-3"></i>update</a>
-          <a href="{{url_for('main.delete_post',id = post.id)}}"><i class="fas fa-trash text-danger">Delete</i></a>
+          <a class="btn btn-success"href="{{url_for('main.CommentBlog', id = post.id)}}">Comment</a>
+          <a class="btn btn-info" href="{{url_for('main.updateBlog', id=post.id)}}"><i class="fas fa-pen pr-3"></i>update</a>
+          <a class="btn btn-danger" href="{{url_for('main.delete_post',id = post.id)}}"><i class="fas fa-trash text-danger">Delete</i></a>
         </div>
       </div>
       <hr>
