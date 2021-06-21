@@ -26,8 +26,7 @@ def index():
                             posts = posts,
                             quote = quote)
 
-@main.route("/post/<int:id>", methods = ["POST", "GET"])
-# def post(id):
+
 #     post = Post.query.filter_by(id = id).first()
 #     comments = Comment.query.filter_by(post_id = id).all()
 #     comment_form = CommentForm()
@@ -55,7 +54,8 @@ def index():
 
 
 
-def post(id):
+@main.route("/post/<int:id>", methods = ["POST", "GET"])
+def CommentBlog(id):
     post = Post.query.filter_by(id = id).all()
     postComments = Comment.query.filter_by(post_id=id).all()
     comment_form = CommentForm()
@@ -63,8 +63,16 @@ def post(id):
         comment = comment_form.comment.data
         new_comment = Comment(post_id=id, comment=comment, user=current_user)
         new_comment.save_comment()
-    return render_template('comments.html', post=post, post_comments=postComments, comment_form=comment_form)
+    return render_template('comments.html', post=post, post_comment=postComments, comment_form=comment_form)
 
+
+@main.route('/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def deleteComment(id):
+    comment =Comment.query.get_or_404(id)
+    db.session.delete(comment)
+    db.session.commit()
+    return redirect (url_for('main.index'))
 
 @main.route("/profile/<int:id>", methods = ["POST", "GET"])
 def profile(id):
@@ -131,7 +139,7 @@ def new_post():
             notification_message(post_title, 
                             "email/notification", sub.email, new_post = new_post)
             pass
-        return redirect(url_for("main.post", id = new_post.id))
+        return redirect(url_for("main.index", id = new_post.id))
     
     return render_template("new_post.html",
                             post_form = post_form)
