@@ -3,8 +3,8 @@
 ## Amos Kiprotich
 
 ### Description
-This is a website of a personal blog where by a user can view, create blogs, comment on them and delete comments and blogs on the site.
-Also, a user can be inspired by random quotes each time they refresh the page.
+Blog is a simple applictation where by a user can view, post a blogs, comment on them and delete comments and verious  on the application.
+Users are also inspired by random qoutes.
 
 ### Prerequisites
 You need the following to start working on this project: On your local systems;
